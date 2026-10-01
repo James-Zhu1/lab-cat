@@ -1,0 +1,24 @@
+diff --git a/cat.py b/cat.py
+index f879933..140c045 100644
+--- a/cat.py
++++ b/cat.py
+@@ -1,11 +1,16 @@
+ '''
+-This program prints stdin to the screen.
++This program prints stdin to the screen using O(1) memory.
+ '''
+ import sys
+ 
+ def cat(file):
+-    data = file.read()
+-    sys.stdout.buffer.write(data)
++    # Read and write in fixed-size chunks to maintain O(1) memory
++    chunk_size = 8192  # 8KB chunk
++    while True:
++        chunk = file.read(chunk_size)
++        if not chunk:
++            break
++        sys.stdout.buffer.write(chunk)
+ 
+ if __name__ == "__main__":
+     if len(sys.argv) > 1:
